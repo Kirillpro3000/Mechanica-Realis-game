@@ -1,24 +1,26 @@
-# simplefps
+# Mechanica Realis
 
-A  simple first-person shooter asset for the Godot Engine. Ready for immediate use when added to a 3D game.
+The Most realistic Game
 
-Updated & Tested for Godot 4.0.2 Stable
+----
+
+STILL IN ALPHA
+
+----
 
 #### Features
 
-- Walking with Input Map strings (Godot default is the arrow keys)
-- Looking Around with Mouse
-- Interacting with Physics
-- Jumping with Spacebar
-- Standing on Rigid Bodies
+- Procedural terrain
+- Inventory
+- Placing & Breaking terrain
 
 #### Default Keymap
 
-- Arrow Keys = Movement
-- Shift + Arrow Keys = Sprint Movement
-- F = Toggle Flashlight
-- E = Grab physics object (Rigid Body by default)
-  - Left-Click to throw held object
+- WASD = Movement
+- Shift + WASD = Sprint Movement
 - Space = Jump
+- R = Material change
+- F = Pick items up
+- E = Open/Close inventory
+- Q = Drop item
 
-[![Icon](simplefps-icon.png)]
