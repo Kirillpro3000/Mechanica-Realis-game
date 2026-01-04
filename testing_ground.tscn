@@ -1,0 +1,87 @@
+[gd_scene load_steps=11 format=3 uid="uid://ckxfjnrwulpcs"]
+
+[ext_resource type="PackedScene" uid="uid://dgpjxoygnvyy4" path="res://assets/Player/Player.tscn" id="1_q4otm"]
+[ext_resource type="PackedScene" uid="uid://dp1h8xwb47jj2" path="res://assets/items/TestCube.tscn" id="2_1aoan"]
+[ext_resource type="PackedScene" uid="uid://7n61ldh3mw0w" path="res://assets/items/log.tscn" id="3_71d8t"]
+[ext_resource type="PackedScene" uid="uid://dqpdu5vuw1ynu" path="res://assets/Models/pine_tree.tscn" id="4_nxusl"]
+
+[sub_resource type="VoxelMesherTransvoxel" id="VoxelMesherTransvoxel_q4otm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_q4otm"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1aoan"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_q4otm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1aoan"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_71d8t"]
+
+[node name="testing ground" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.6289540997815388, -4.760461950198455e-17, -0.7774424354047019, 0.7774424354047019, 3.851233125540333e-17, 0.6289540997815388, 0, -1, 6.123233995736766e-17, 0, 0, 0)
+light_energy = 2.0
+shadow_enabled = true
+shadow_bias = 0.0
+shadow_normal_bias = 0.0
+shadow_transmittance_bias = -0.9399999999999996
+shadow_blur = 10.0
+
+[node name="Player" parent="." instance=ExtResource("1_q4otm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.871635714245493, 0)
+
+[node name="VoxelLodTerrain" type="VoxelLodTerrain" parent="."]
+mesher = SubResource("VoxelMesherTransvoxel_q4otm")
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+transform = Transform3D(100, 0, 0, 0, 0.1, 0, 0, 0, 100, 0, 0.10000000000582077, 0)
+shape = SubResource("BoxShape3D_q4otm")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
+mesh = SubResource("PlaneMesh_1aoan")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+physics_material_override = SubResource("PhysicsMaterial_q4otm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_1aoan")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_71d8t")
+
+[node name="items" type="Node3D" parent="."]
+
+[node name="ItemTestCube" parent="items" instance=ExtResource("2_1aoan")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.711338806145124, 1.4091019791305115, 0)
+
+[node name="ItemTestCube2" parent="items" instance=ExtResource("2_1aoan")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.329648873249926, 1.4091019791305115, 0)
+
+[node name="ItemTestCube3" parent="items" instance=ExtResource("2_1aoan")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.202733075005504, 1.4091019791305115, 3.100652234243176)
+
+[node name="ItemTestCube4" parent="items" instance=ExtResource("2_1aoan")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.01793263949146784, 1.4091019791305115, 7.470183786721517)
+
+[node name="ItemTestCube5" parent="items" instance=ExtResource("2_1aoan")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.711338806145124, 1.4091019791305115, -6.52914621157559)
+
+[node name="ItemTestCube6" parent="items" instance=ExtResource("2_1aoan")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.6890539820064845, 1.4091019791305115, -4.439367189478041)
+
+[node name="ItemTestCube7" parent="items" instance=ExtResource("2_1aoan")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.280279506978399, 1.4091019791305115, 4.054972384404328)
+
+[node name="ItemTestCube8" parent="items" instance=ExtResource("2_1aoan")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.711338806145124, 1.4091019791305115, 6.845509455605363)
+
+[node name="Log" parent="." instance=ExtResource("3_71d8t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.208881119799909, 1.5168550865428, 2.577044184905279)
+
+[node name="pine tree" parent="." instance=ExtResource("4_nxusl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.6942942837933606)

@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://dfd3ptr40slew"
+path="res://.godot/imported/Grass.png-ec9c40cda8eb893b2f8da5a9126e918e.image"
+
+[deps]
+
+source_file="res://assets/textures/Grass.png"
+dest_files=["res://.godot/imported/Grass.png-ec9c40cda8eb893b2f8da5a9126e918e.image"]
+
+[params]
+

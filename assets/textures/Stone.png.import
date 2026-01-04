@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://libgqrvul2mj"
+path="res://.godot/imported/Stone.png-9181c5136044a997dab6d8d7beda8dfc.image"
+
+[deps]
+
+source_file="res://assets/textures/Stone.png"
+dest_files=["res://.godot/imported/Stone.png-9181c5136044a997dab6d8d7beda8dfc.image"]
+
+[params]
+

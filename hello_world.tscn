@@ -1,0 +1,278 @@
+[gd_scene load_steps=19 format=4 uid="uid://taq0lgqotafe"]
+
+[ext_resource type="Shader" uid="uid://bn7ov74depams" path="res://TerrainShader.gdshader" id="1_4y6qr"]
+[ext_resource type="PackedScene" uid="uid://dgpjxoygnvyy4" path="res://assets/Player/Player.tscn" id="1_kqpgu"]
+[ext_resource type="Script" uid="uid://dlbpormbgpcft" path="res://voxel_lod_terrain.gd" id="2_xy2u8"]
+
+[sub_resource type="VoxelStreamMemory" id="VoxelStreamMemory_4y6qr"]
+
+[sub_resource type="ZN_FastNoiseLite" id="ZN_FastNoiseLite_c3h7y"]
+period = 240.4001
+fractal_type = 2
+fractal_gain = 1.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xy2u8"]
+noise_type = 0
+frequency = 0.00299999999999999
+fractal_type = 0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ooryp"]
+noise_type = 0
+frequency = 0.00299999999999999
+fractal_type = 2
+fractal_weighted_strength = 1.0
+domain_warp_amplitude = 10.0
+
+[sub_resource type="ZN_FastNoiseLite" id="ZN_FastNoiseLite_xy2u8"]
+
+[sub_resource type="ZN_FastNoiseLite" id="ZN_FastNoiseLite_4y6qr"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4y6qr"]
+noise_type = 0
+frequency = 0.1
+
+[sub_resource type="VoxelGeneratorGraph" id="VoxelGeneratorGraph_ooryp"]
+graph_data = {
+"connections": [[45, 0, 46, 0], [44, 0, 45, 0], [44, 0, 45, 1], [15, 0, 5, 1], [73, 0, 74, 0], [42, 0, 43, 0], [40, 0, 39, 1], [11, 0, 9, 0], [69, 0, 71, 0], [43, 0, 51, 0], [72, 0, 73, 0], [39, 0, 41, 0], [39, 0, 41, 1], [41, 0, 42, 0], [71, 0, 72, 0], [12, 0, 11, 2], [12, 0, 15, 0], [38, 0, 39, 0], [37, 0, 38, 0], [46, 0, 47, 0], [47, 0, 43, 1], [48, 0, 49, 0], [49, 0, 50, 0], [5, 0, 63, 0], [63, 0, 53, 0], [50, 0, 51, 1], [51, 0, 53, 1], [53, 0, 4, 0], [56, 0, 57, 0], [57, 0, 58, 1], [58, 0, 63, 1]],
+"nodes": {
+"11": {
+"a": 0.0,
+"b": 1.0,
+"gui_position": Vector2(160, 180),
+"threshold": 0.0,
+"type": "Select"
+},
+"12": {
+"auto_connect": true,
+"gui_position": Vector2(20, 360),
+"name": &"Terrain",
+"noise": SubResource("FastNoiseLite_ooryp"),
+"type": "Noise2D",
+"x": 0.0,
+"y": 0.0
+},
+"15": {
+"b": 80.0,
+"gui_position": Vector2(220, 360),
+"type": "Multiply"
+},
+"37": {
+"auto_connect": true,
+"gui_position": Vector2(-690, 660),
+"noise": SubResource("ZN_FastNoiseLite_xy2u8"),
+"type": "FastNoise2D",
+"x": 0.0,
+"y": 0.0
+},
+"38": {
+"b": 20.0,
+"gui_position": Vector2(-480, 660),
+"type": "Multiply"
+},
+"39": {
+"gui_position": Vector2(-220, 660),
+"type": "Add"
+},
+"4": {
+"auto_connect": true,
+"gui_position": Vector2(1050, 600),
+"type": "OutputSDF"
+},
+"40": {
+"gui_position": Vector2(-330, 690),
+"type": "InputY"
+},
+"41": {
+"gui_position": Vector2(-60, 660),
+"type": "Multiply"
+},
+"42": {
+"b": 0.25,
+"gui_position": Vector2(100, 660),
+"type": "Multiply"
+},
+"43": {
+"gui_position": Vector2(300, 720),
+"type": "Add"
+},
+"44": {
+"auto_connect": true,
+"gui_position": Vector2(-400, 810),
+"noise": SubResource("ZN_FastNoiseLite_c3h7y"),
+"type": "FastNoise2D",
+"x": 0.0,
+"y": 0.0
+},
+"45": {
+"gui_position": Vector2(-220, 810),
+"type": "Multiply"
+},
+"46": {
+"b": 32.0,
+"gui_position": Vector2(-60, 810),
+"type": "Multiply"
+},
+"47": {
+"b": 0.75,
+"gui_position": Vector2(100, 810),
+"type": "Subtract"
+},
+"48": {
+"auto_connect": true,
+"gui_position": Vector2(-10, 950),
+"noise": SubResource("ZN_FastNoiseLite_4y6qr"),
+"type": "FastNoise2D",
+"x": 0.0,
+"y": 0.0
+},
+"49": {
+"b": 5.0,
+"gui_position": Vector2(160, 950),
+"type": "Multiply"
+},
+"5": {
+"auto_connect": true,
+"gui_position": Vector2(370, 330),
+"type": "SdfPlane",
+"y": 0.0
+},
+"50": {
+"b": 0.0,
+"gui_position": Vector2(310, 950),
+"type": "Max"
+},
+"51": {
+"gui_position": Vector2(520, 820),
+"name": &"Caves",
+"type": "Add"
+},
+"53": {
+"gui_position": Vector2(750, 690),
+"smoothness": 0.0,
+"type": "SdfSmoothSubtract"
+},
+"56": {
+"auto_connect": true,
+"gui_position": Vector2(20, 500),
+"name": &"Erosion",
+"noise": SubResource("FastNoiseLite_4y6qr"),
+"type": "Noise2D",
+"x": 0.0,
+"y": 0.0
+},
+"57": {
+"b": 1.0,
+"gui_position": Vector2(220, 500),
+"type": "Multiply"
+},
+"58": {
+"auto_connect": true,
+"gui_position": Vector2(370, 470),
+"type": "SdfPlane",
+"y": 0.0
+},
+"63": {
+"gui_position": Vector2(590, 590),
+"type": "Add"
+},
+"69": {
+"auto_connect": true,
+"gui_position": Vector2(560, 160),
+"name": &"ForestPatchNoise",
+"noise": SubResource("FastNoiseLite_xy2u8"),
+"type": "Noise2D",
+"x": 0.0,
+"y": 0.0
+},
+"71": {
+"b": 1.0,
+"gui_position": Vector2(790, 160),
+"type": "Add"
+},
+"72": {
+"b": 1.2,
+"gui_position": Vector2(940, 160),
+"type": "Subtract"
+},
+"73": {
+"gui_position": Vector2(1080, 160),
+"max": 1.0,
+"min": 0.0,
+"type": "Clamp"
+},
+"74": {
+"gui_position": Vector2(1220, 160),
+"type": "CustomOutput"
+},
+"9": {
+"gui_position": Vector2(290, 180),
+"type": "OutputSingleTexture"
+}
+},
+"version": 2
+}
+
+[sub_resource type="VoxelMesherTransvoxel" id="VoxelMesherTransvoxel_4y6qr"]
+texturing_mode = 1
+
+[sub_resource type="VoxelFormat" id="VoxelFormat_ih3d8"]
+
+[sub_resource type="Image" id="Image_4y6qr"]
+data = {
+"data": PackedByteArray("I4c9I4c9I4c9I4c9JpNDI4c9I4c9JpNDH3c2I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9H3c2I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9H3c2I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9H3c2I4c9JpNDI4c9I4c9I4c9JpNDI4c9I4c9H3c2I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9JpNDI4c9I4c9H3c2I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9H3c2I4c9I4c9JpNDI4c9I4c9I4c9H3c2I4c9I4c9I4c9I4c9I4c9I4c9JpNDI4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9H3c2I4c9I4c9I4c9I4c9I4c9H3c2I4c9I4c9I4c9H3c2I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9JpNDI4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9H3c2I4c9I4c9JpNDI4c9I4c9I4c9I4c9I4c9I4c9I4c9H3c2I4c9I4c9I4c9JpNDI4c9I4c9I4c9I4c9H3c2I4c9I4c9I4c9I4c9JpNDI4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9JpNDI4c9I4c9JpNDI4c9I4c9I4c9I4c9I4c9H3c2I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9JpNDI4c9I4c9I4c9JpNDI4c9I4c9H3c2I4c9I4c9I4c9I4c9I4c9H3c2JpNDI4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9I4c9H3c2I4c9"),
+"format": "RGB8",
+"height": 16,
+"mipmaps": false,
+"width": 16
+}
+
+[sub_resource type="Image" id="Image_xy2u8"]
+data = {
+"data": PackedByteArray("fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8cnJycnJycnJyfHx8cnJycnJyfHx8fHx8fHx8fHx8fHx8cnJycnJycnJycnJyfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8goKCgoKCfHx8fHx8fHx8fHx8fHx8goKCgoKCgoKCgoKCfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8cnJycnJyfHx8fHx8cnJycnJycnJycnJycnJycnJyfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8goKCgoKCfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8cnJycnJycnJycnJycnJycnJycnJyfHx8fHx8fHx8cnJyfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8goKCgoKCgoKCfHx8fHx8fHx8fHx8fHx8fHx8goKCgoKCcnJycnJyfHx8fHx8fHx8fHx8cnJycnJycnJycnJyfHx8fHx8cnJycnJycnJycnJyfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8goKCgoKCgoKCgoKCfHx8fHx8fHx8fHx8fHx8goKCgoKCgoKCgoKCfHx8cnJycnJyfHx8cnJycnJycnJycnJycnJyfHx8fHx8cnJycnJycnJycnJycnJycnJyfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8cnJycnJycnJycnJycnJyfHx8fHx8fHx8fHx8fHx8fHx8fHx8goKCgoKC"),
+"format": "RGB8",
+"height": 16,
+"mipmaps": false,
+"width": 16
+}
+
+[sub_resource type="Image" id="Image_ooryp"]
+data = {
+"data": PackedByteArray("8sOT8sOT8sOT8sOT8sOT8sOT5biL5biL5biL5biL5biL5biL5biL5biL5biL5biLxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxx5biL5biL5biL5biL5biL5biL5biL5biL5biL8sOT8sOT8sOT8sOT8sOT8sOT8sOT26x95biL26x926x95biL5biL26x926x926x926x95biL5biL5biL5biL26x926x95biL5biL8sOT8sOT8sOT8sOT5biL5biL5biL5biL5biL5biL5biL5biL5biL5biLxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxx5biL5biL5biL5biL5biL5biL5biL8sOT8sOT8sOT8sOT8sOT8sOT8sOT8sOT5biL5biL26x926x95biL26x926x926x926x95biL5biL5biL26x926x926x926x95biL8sOT8sOT8sOT8sOT8sOT8sOT8sOT8sOT8sOT5biL5biL5biL5biL5biL5biL5biLxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxx5biL5biL5biL5biL5biL5biL5biL5biL5biL5biL8sOT8sOT8sOT8sOT8sOT8sOT26x926x926x926x926x926x95biL5biL5biL26x926x95biL26x926x926x95biL5biL8sOT8sOT8sOT8sOT8sOT8sOT8sOT8sOT8sOT5biL5biL5biL5biL5biL5biLxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxxxpxx8sOT8sOT8sOT8sOT8sOT8sOT5biL5biL5biL5biL5biL5biL5biL5biL5biL5biL5biL26x926x95biL5biL26x926x926x95biL5biL26x926x95biL26x926x95biL"),
+"format": "RGB8",
+"height": 16,
+"mipmaps": false,
+"width": 16
+}
+
+[sub_resource type="Texture2DArray" id="Texture2DArray_c3h7y"]
+_images = Array[Image]([SubResource("Image_4y6qr"), SubResource("Image_xy2u8"), SubResource("Image_ooryp")])
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ooryp"]
+render_priority = 0
+shader = ExtResource("1_4y6qr")
+shader_parameter/u_transition_mask = 0
+shader_parameter/u_texture_array = SubResource("Texture2DArray_c3h7y")
+
+[node name="HelloWorld" type="Node3D"]
+
+[node name="Terrain" type="VoxelLodTerrain" parent="."]
+stream = SubResource("VoxelStreamMemory_4y6qr")
+generator = SubResource("VoxelGeneratorGraph_ooryp")
+mesher = SubResource("VoxelMesherTransvoxel_4y6qr")
+format = SubResource("VoxelFormat_ih3d8")
+material = SubResource("ShaderMaterial_ooryp")
+run_stream_in_editor = false
+script = ExtResource("2_xy2u8")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.6289540997815388, -4.760461950198455e-17, -0.7774424354047019, 0.7774424354047019, 3.851233125540333e-17, 0.6289540997815388, 0, -1, 6.123233995736766e-17, 0, 0, 0)
+light_energy = 2.0
+shadow_enabled = true
+shadow_blur = 10.0
+
+[node name="Player" parent="." instance=ExtResource("1_kqpgu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 54.2695877637751, 0)
+
+[node name="Trees" type="Node3D" parent="."]
+
+[node name="TreeSpawner" type="Node3D" parent="."]

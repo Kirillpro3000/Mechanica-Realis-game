@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=4 uid="uid://dp1h8xwb47jj2"]
+
+[ext_resource type="Script" uid="uid://di78oe451f1mk" path="res://assets/Player/Inventory/InteractableItem.gd" id="1_er3by"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_er3by"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_5frrd"]
+_surfaces = [{
+"aabb": AABB(-0.5288675138896408, -0.5288675138896408, -0.5288675138896408, 1.0577350277792816, 1.0577350277792816, 1.0577350277792816),
+"attribute_data": PackedByteArray("AAAAAAAAAACrqio/AAAAAKuqqj4AAAAAAACAPwAAAAAAAAAAAAAAP6uqKj8AAAA/q6qqPgAAAD8AAIA/AAAAP6uqqj4AAAAAAAAAAAAAAD+rqio/AAAAAKuqqj4AAAA/q6qqPgAAAD8AAAAAAACAP6uqKj8AAAA/q6qqPgAAgD+rqqo+AAAAP6uqKj8AAAA/q6oqPwAAAD8AAIA/AAAAP6uqqj4AAIA/q6oqPwAAgD+rqio/AACAPwAAgD8AAIA/"),
+"format": 34359742487,
+"index_count": 36,
+"index_data": PackedByteArray("AAAEAAIAAgAEAAYAAQAFAAMAAwAFAAcACAAMAAoACgAMAA4ACQANAAsACwANAA8AEAAUABIAEgAUABYAEQAVABMAEwAVABcA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("3WMHv91jBz/dYwc/3WMHP91jBz/dYwe/3WMHP91jBz/dYwc/3WMHv91jBz/dYwe/3WMHv91jB7/dYwc/3WMHP91jB7/dYwe/3WMHP91jB7/dYwc/3WMHv91jB7/dYwe/3WMHP91jBz/dYwc/3WMHv91jBz/dYwe/3WMHP91jBz/dYwe/3WMHv91jBz/dYwc/3WMHP91jB7/dYwc/3WMHv91jB7/dYwe/3WMHP91jB7/dYwe/3WMHv91jB7/dYwc/3WMHP91jBz/dYwc/3WMHv91jB7/dYwc/3WMHv91jBz/dYwc/3WMHP91jB7/dYwc/3WMHP91jBz/dYwe/3WMHv91jB7/dYwe/3WMHv91jBz/dYwe/3WMHP91jB7/dYwe//3//f////7//////AAD/v/9//3////+//////wAA/7//f/9/////v/////8AAP+//3//f////7//////AAD/v///AID/////AAAAgP9//7///wCA/////wAAAID/f/+///8AgP////8AAACA/3//v///AID/////AAAAgP9//78AgP//AAD/vwCAAAD///+/AID//wAA/78AgAAA////vwCA//8AAP+/AIAAAP///78AgP//AAD/vwCAAAD///+/")
+}]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0i5j3"]
+emission = Color(0, 1, 0, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m2q3y"]
+
+[node name="ItemTestCube" type="RigidBody3D" node_paths=PackedStringArray("ItemHighlightMesh")]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_er3by")
+ItemHighlightMesh = NodePath("MeshInstance3D/Outline")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_er3by")
+
+[node name="Outline" type="MeshInstance3D" parent="MeshInstance3D"]
+mesh = SubResource("ArrayMesh_5frrd")
+surface_material_override/0 = SubResource("StandardMaterial3D_0i5j3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_m2q3y")

@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqpdu5vuw1ynu"]
+
+[ext_resource type="PackedScene" uid="uid://b5pw6fk4yp4qr" path="res://assets/Models/pine tree.fbx" id="1_q7sqi"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_q7sqi"]
+
+[node name="pine tree" instance=ExtResource("1_q7sqi")]
+
+[node name="Cylinder_469" parent="." index="0"]
+transform = Transform3D(95.45563298935294, 29.80305572591432, 1.3027329909265362e-06, -2.7755575615628914e-15, -4.371138984105016e-06, 99.9999999999999, 29.80305572591435, -95.45563298935284, -4.172498391241675e-06, 0, 0, 0)
+
+[node name="Circle_046" parent="." index="1"]
+transform = Transform3D(100, 0, 0, 0, -1.6292067961387602e-05, 99.99999999999868, 0, -99.99999999999868, -1.6292067961387602e-05, 0, 2.5153766134871214, 0)
+
+[node name="Circle_047" parent="." index="2"]
+transform = Transform3D(100, 0, 0, 0, -1.6292067961387602e-05, 99.99999999999868, 0, -99.99999999999868, -1.6292067961387602e-05, 0, 0.7733374108375961, 0.17588480058661338)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(0.3, 0, 0, 0, 1.5, 0, 0, 0, 0.3, -0.02633258304584568, 1.3299786666034736, -0.021739463433780415)
+shape = SubResource("CylinderShape3D_q7sqi")

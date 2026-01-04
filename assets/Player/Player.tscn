@@ -1,0 +1,175 @@
+[gd_scene load_steps=19 format=3 uid="uid://dgpjxoygnvyy4"]
+
+[ext_resource type="Script" uid="uid://dlof80442xnix" path="res://assets/Player/Player.gd" id="1_1fhis"]
+[ext_resource type="Script" uid="uid://u2ke7a2s4hkx" path="res://assets/Player/ability_grab.gd" id="2_gwqkd"]
+[ext_resource type="Script" uid="uid://bn3tggmorwpyq" path="res://assets/Player/Interaction/PlayerInteractionHandler.gd" id="3_pbekg"]
+[ext_resource type="Script" uid="uid://7eqcb2dvvbs8" path="res://assets/Player/Inventory/ItemData.gd" id="4_2w38r"]
+[ext_resource type="Texture2D" uid="uid://d0l1k3ogdwjyc" path="res://assets/textures/BoxIcon.png" id="5_2w38r"]
+[ext_resource type="PackedScene" uid="uid://dp1h8xwb47jj2" path="res://assets/items/TestCube.tscn" id="5_pbekg"]
+[ext_resource type="Texture2D" uid="uid://dqbdoob3yssai" path="res://assets/textures/log.png" id="7_10yvb"]
+[ext_resource type="Script" uid="uid://dhdpjttytkxu6" path="res://assets/Player/Inventory/InventoryHandler.gd" id="7_ixpbm"]
+[ext_resource type="FontFile" uid="uid://b1ked7317yy34" path="res://assets/fonts/data-latin.ttf" id="8_1b4fv"]
+[ext_resource type="PackedScene" uid="uid://7n61ldh3mw0w" path="res://assets/items/log.tscn" id="8_jsmu0"]
+[ext_resource type="PackedScene" uid="uid://cwar3lbacisw5" path="res://assets/Player/Inventory/InventorySlot.tscn" id="10_jsmu0"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_euj4i"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_1vm00"]
+
+[sub_resource type="Resource" id="Resource_rjiia"]
+script = ExtResource("4_2w38r")
+ItemName = "Test Cube"
+Icon = ExtResource("5_2w38r")
+ItemModelPrefab = ExtResource("5_pbekg")
+metadata/_custom_type_script = "uid://7eqcb2dvvbs8"
+
+[sub_resource type="Resource" id="Resource_lcmfu"]
+script = ExtResource("4_2w38r")
+ItemName = "log"
+Icon = ExtResource("7_10yvb")
+ItemModelPrefab = ExtResource("8_jsmu0")
+MaxStack = 2
+metadata/_custom_type_script = "uid://7eqcb2dvvbs8"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_pbekg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pbekg"]
+bg_color = Color(0.19607843, 0.19607843, 0.19607843, 0.8745098)
+
+[sub_resource type="LabelSettings" id="LabelSettings_nrmjh"]
+font = ExtResource("8_1b4fv")
+font_size = 50
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Player" type="CharacterBody3D"]
+disable_mode = 2
+floor_max_angle = 0.802851
+script = ExtResource("1_1fhis")
+
+[node name="body" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_euj4i")
+debug_color = Color(0.25828394, 0.5573118, 0.8155833, 0.41960785)
+
+[node name="rotation_helper" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Camera3D" type="Camera3D" parent="rotation_helper"]
+current = true
+
+[node name="flashlight_player" type="SpotLight3D" parent="rotation_helper/Camera3D"]
+visible = false
+light_energy = 3.0
+light_bake_mode = 0
+spot_range = 10.0
+spot_angle = 15.0
+spot_angle_attenuation = 1.56917
+
+[node name="ability_grab" type="RayCast3D" parent="rotation_helper/Camera3D"]
+target_position = Vector3(0, 0, -2)
+script = ExtResource("2_gwqkd")
+
+[node name="GrabPosition3D" type="Marker3D" parent="rotation_helper/Camera3D/ability_grab"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="RayCast3D" type="RayCast3D" parent="rotation_helper/Camera3D"]
+target_position = Vector3(0, 0, -5)
+
+[node name="VoxelViewer" type="VoxelViewer" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_1vm00")
+
+[node name="InteractionArea" type="Area3D" parent="."]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, -0.9586707379591148)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("3_pbekg")
+ItemTypes = Array[ExtResource("4_2w38r")]([SubResource("Resource_rjiia"), SubResource("Resource_lcmfu")])
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea"]
+shape = SubResource("SphereShape3D_pbekg")
+
+[node name="InventoryUI" type="Control" parent="." node_paths=PackedStringArray("PlayerBody", "InventoryGrid", "HotbarContainer")]
+visible = false
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -338.0
+offset_right = 360.0
+grow_vertical = 0
+script = ExtResource("7_ixpbm")
+PlayerBody = NodePath("..")
+CollisionMask = 1
+HotbarSize = null
+InventoryGrid = NodePath("Panel/MarginContainer/GridContainer")
+HotbarContainer = NodePath("../HotbarUI/Panel/MarginContainer/HBoxContainer")
+InventorySlotPrefab = ExtResource("10_jsmu0")
+
+[node name="Panel" type="Panel" parent="InventoryUI"]
+layout_mode = 0
+offset_right = 360.0
+offset_bottom = 338.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pbekg")
+
+[node name="MarginContainer" type="MarginContainer" parent="InventoryUI/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="GridContainer" type="GridContainer" parent="InventoryUI/Panel/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 5
+
+[node name="Label" type="Label" parent="InventoryUI"]
+layout_mode = 0
+offset_right = 360.0
+offset_bottom = 52.0
+text = "INVENTORY"
+label_settings = SubResource("LabelSettings_nrmjh")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HotbarUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -398.0
+offset_top = -72.0
+offset_right = 222.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Panel" type="Panel" parent="HotbarUI"]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 621.0
+offset_bottom = 72.0
+
+[node name="MarginContainer" type="MarginContainer" parent="HotbarUI/Panel"]
+layout_mode = 0
+offset_right = 620.0
+offset_bottom = 72.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HotbarUI/Panel/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+alignment = 1
+
+[connection signal="OnItemPickedUp" from="InteractionArea" to="InventoryUI" method="PickupItem"]
+[connection signal="body_entered" from="InteractionArea" to="InteractionArea" method="OnObjectEnteredArea"]
+[connection signal="body_exited" from="InteractionArea" to="InteractionArea" method="OnObjectExitedArea"]
